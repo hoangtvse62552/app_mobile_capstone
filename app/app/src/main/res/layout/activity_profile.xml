@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.ProfileActivity"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="100dp"
+        >
+        <TextView
+            android:background="@color/black"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            />
+        <LinearLayout
+            android:layout_width="360dp"
+
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Thông tin cơ bản"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Họ và tên"
+                android:textColor="#686868"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/txtNameEdit"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="35dp"
+                android:drawablePadding="16dp"
+                android:hint="Name"
+                android:inputType="text"
+                android:lineHeight="40dp"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:text="Họ và Tên"
+                android:textColorHint="@color/colorTextSecondary"
+                android:textSize="16sp"
+                android:theme="@style/EditTextTheme" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Email"
+                android:textColor="#686868"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="35dp"
+                android:drawablePadding="16dp"
+                android:hint="Name"
+                android:inputType="text"
+                android:lineHeight="40dp"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:text="Email@gmail.com"
+                android:textColorHint="@color/colorTextSecondary"
+                android:textSize="16sp"
+                android:theme="@style/EditTextTheme" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Số điện thoại"
+                android:textColor="#686868"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/txtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="35dp"
+                android:drawablePadding="16dp"
+                android:hint="Name"
+                android:inputType="text"
+                android:lineHeight="40dp"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:text="0123456789"
+                android:textColorHint="@color/colorTextSecondary"
+                android:textSize="16sp"
+                android:theme="@style/EditTextTheme" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginRight="16dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="4dp"
+            >
+            <Button
+                android:id="@+id/btnLogoutEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:background="@drawable/button_logout"
+                android:text="Đăng xuất"
+                android:layout_marginRight="12dp"
+                android:textColor="@color/white"
+                android:onClick="logout"/>
+
+            <Button
+                android:id="@+id/btnSaveEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:background="@drawable/button_save"
+                android:text="Lưu"
+                android:onClick="changeProfile"
+                android:textColor="@color/white" />
+            <Button
+                android:id="@+id/btnChangePassword"
+                android:layout_width="115dp"
+                android:layout_height="38dp"
+                android:background="@drawable/button_changepassword"
+                android:text="Đổi mật khẩu"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:onClick="goToChangePassword"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.design.bottomappbar.BottomAppBar
+        android:id="@+id/btnAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/white"
+        app:borderWidth="1dp"
+
+        >
+
+        <LinearLayout
+            android:background="@drawable/border_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableTop="@drawable/ic_user_on"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:text="Tài khoản"
+                android:textColor="@color/black"
+                android:textSize="8dp"
+                android:onClick="goToProfile"/>
+            <TextView
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableTop="@drawable/ic_user_on"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:text="Quét mã"
+                android:textColor="@color/black"
+                android:textSize="8dp"
+                />
+            <TextView
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableTop="@drawable/ic_list_off"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:text="Danh sách"
+                android:textColor="@color/black"
+                android:textSize="8dp"
+                android:onClick="goToListFood"/>
+        </LinearLayout>
+    </android.support.design.bottomappbar.BottomAppBar>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/border_linear"
+        android:backgroundTint="@color/white"
+        android:onClick="goToScanCode"
+        android:src="@drawable/ic_barcode"
+        app:borderWidth="1dp"
+        app:fabCustomSize="80dp"
+        app:layout_anchor="@id/btnAppBar"
+        app:maxImageSize="40dp"
+        />
+
+</android.support.design.widget.CoordinatorLayout>

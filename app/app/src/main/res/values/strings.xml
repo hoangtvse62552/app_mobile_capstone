@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TFS</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_scan_code">ScanCodeActivity</string>
+</resources>

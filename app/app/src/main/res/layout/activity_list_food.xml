@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ListFoodActivity"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayoutList"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextAppearance="@style/TabLayoutStyle"
+            app:tabTextColor="@color/grey"
+            />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPagerList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="2dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginBottom="50dp"
+            >
+        </android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+    <android.support.design.bottomappbar.BottomAppBar
+        android:id="@+id/btnAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/white"
+        app:borderWidth="1dp"
+
+        >
+
+        <LinearLayout
+            android:background="@drawable/border_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableTop="@drawable/ic_user_off"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:text="Tài khoản"
+                android:textColor="@color/black"
+                android:textSize="8dp"
+                android:onClick="goToProfile"/>
+            <TextView
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginTop="10dp"
+                android:drawableTop="@drawable/ic_user_on"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:text="Quét mã"
+                android:textColor="@color/black"
+                android:textSize="8dp"
+                />
+            <TextView
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableTop="@drawable/ic_list_on"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:text="Danh sách"
+                android:textColor="@color/black"
+                android:textSize="8dp"
+                android:onClick="goToListFood"/>
+        </LinearLayout>
+    </android.support.design.bottomappbar.BottomAppBar>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/border_linear"
+        android:backgroundTint="@color/white"
+        android:onClick="goToScanCode"
+        android:src="@drawable/ic_barcode"
+        app:borderWidth="1dp"
+        app:fabCustomSize="80dp"
+        app:layout_anchor="@id/btnAppBar"
+        app:maxImageSize="40dp"
+        />
+</android.support.design.widget.CoordinatorLayout>
