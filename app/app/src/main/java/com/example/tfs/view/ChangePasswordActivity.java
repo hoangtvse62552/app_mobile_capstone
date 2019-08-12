@@ -2,8 +2,10 @@ package com.example.tfs.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,10 +20,12 @@ import com.example.tfs.service.UserService;
 public class ChangePasswordActivity extends AppCompatActivity {
 
 
+    private EditText txtOldPassword;
     private EditText txtPasswordChange;
     private EditText txtRePasswordChange;
     private TextView txtFailChangePassword;
     private ProgressDialog progressDialog;
+    private int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +33,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_password);
         progressDialog = new ProgressDialog(ChangePasswordActivity.this);
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        userID = sharedPreferences.getInt("userID",0);
 
-        TextView txtClose;
-        txtClose = findViewById(R.id.txtCloseChangePass);
-        txtClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressDialog.dismiss();
-            }
-        });
     }
     public void closeChange(View v) {
         Intent intent =new Intent(getApplicationContext(),ProfileActivity.class);
@@ -53,6 +51,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         txtFailChangePassword = findViewById(R.id.txtFailChangePassword);
         txtPasswordChange = findViewById(R.id.txtPasswordChange);
         txtRePasswordChange = findViewById(R.id.txtRePasswordChange);
+        txtOldPassword = findViewById(R.id.txtOldPassword);
 
 //        Toast.makeText(ProfileActivity.this, "" + txtPasswordChange.getText(),Toast.LENGTH_LONG);
         if(!txtPasswordChange.getText().toString().equals(txtRePasswordChange.getText().toString())) {
@@ -60,7 +59,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             return;
         } else {
             txtFailChangePassword.setText("thay đổi thành công");
-            UserService.getInstance().changePassword(ChangePasswordActivity.this, 1, txtPasswordChange.getText().toString(), "new Pass",new VolleyCallBack() {
+            UserService.getInstance().changePassword(ChangePasswordActivity.this, userID, txtOldPassword.getText().toString(), txtPasswordChange.getText().toString(),new VolleyCallBack() {
                 @Override
                 public void onSuccess(Object response) {
                     // change pass successful

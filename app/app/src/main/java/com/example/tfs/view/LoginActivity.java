@@ -135,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
 
         editor.apply();
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        finish();
     }
 
     public void loginFail() {

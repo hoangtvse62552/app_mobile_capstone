@@ -75,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onError(Object ex) {
                 //Fail
+                System.out.println(ex);
                 Toast.makeText(ProfileActivity.this, "" + ex, Toast.LENGTH_SHORT).show();
             }
         });
@@ -105,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
     public void success() {
-        Toast.makeText(this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ProfileActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
     }
     public void logout(View v) {
 
@@ -114,6 +115,7 @@ public class ProfileActivity extends AppCompatActivity {
         editor.clear();
         editor.commit();
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        finish();
     }
 
     public void goToChangePassword(View view) {

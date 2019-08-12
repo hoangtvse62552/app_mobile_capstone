@@ -35,7 +35,7 @@
                 android:layout_width="131dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Lý do"
+                android:text="Bình luận"
                 android:textColor="@color/black"
                 android:textSize="24dp" />
 
