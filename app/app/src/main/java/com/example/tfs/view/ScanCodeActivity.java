@@ -1,4 +1,5 @@
 package com.example.tfs.view;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +12,12 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
+
 import com.example.tfs.R;
+import com.example.tfs.api.VolleyCallBack;
+import com.example.tfs.service.TransactionService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -26,7 +32,9 @@ public class ScanCodeActivity extends AppCompatActivity {
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private String token;
-    private int distributorId;
+    private int premisesId;
+    private int userID;
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +43,16 @@ public class ScanCodeActivity extends AppCompatActivity {
         surfaceView = findViewById(R.id.camera_view);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        token = sharedPreferences.getString("token","");
-        distributorId = sharedPreferences.getInt("premisesId", 0);
+        token = sharedPreferences.getString("token", "");
+        if (token.contains("Veterinary")) {
+            role = "Veterinary";
+        } else if(token.contains("Distributor")) {
+            role = "Distributor";
+        }
+        premisesId = sharedPreferences.getInt("premisesId", 0);
+        userID = sharedPreferences.getInt("userID", 0);
     }
+
     private void initialiseDetectorsAndSources() {
 
 //        Toast.makeText(getApplicationContext(), "Bắt đầu quét mã", Toast.LENGTH_SHORT).show();
@@ -90,7 +105,7 @@ public class ScanCodeActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
-                    Intent it;
+
 
                     String barcode = barcodes.valueAt(0).displayValue;
                     String[] code = barcode.split("-");
@@ -112,22 +127,64 @@ public class ScanCodeActivity extends AppCompatActivity {
 //                        return;
 //                    }
 //                    startActivity(it);
-                    if(code[0].equals("Food") && token.contains("Distributor")) {
-                        it = new Intent(getApplicationContext(), ScanFoodResultActivity.class);
-                        it.putExtra("foodId", code[1]);
-                        it.putExtra("disId", code[3]);
-                    } else if(!code[0].equals("Food") && token.contains("Veterinary")){
-                        it = new Intent(getApplicationContext(), ScanResultActivity.class);
-                        it.putExtra("transactionId", code[1]);
+//                    if(code[0].equals("Trans") && token.contains("Distributor")) {
+//                        it = new Intent(getApplicationContext(), ScanFoodResultActivity.class);
+//                        it.putExtra("foodId", code[1]);
+//                        it.putExtra("providerId", code[2]);
+//                        it.putExtra("premisesId", code[3]);
+//
+//                    } else if(!code[0].equals("Food") && token.contains("Veterinary")){
+//                        it = new Intent(getApplicationContext(), ScanResultActivity.class);
+//                        it.putExtra("transactionId", code[1]);
+//                    } else {
+//                        return;
+//                    }
+                    final int transId = Integer.parseInt(code[1]);
+                    final int providerId = Integer.parseInt(code[2]);
+                    if (code[0].equals("Trans")) {
+                        TransactionService.getInstance().getTransaction(ScanCodeActivity.this, transId,role, new VolleyCallBack() {
+                            @Override
+                            public void onSuccess(Object response) {
+                                try {
+                                    String json = response.toString();
+                                    ObjectMapper mapper = new ObjectMapper();
+                                    JsonNode jsonNode = mapper.readTree(json);
+                                    int receiverId = jsonNode.get("data").get("Receiver").get("PremisesId").asInt();
+                                    int veterinaryId = jsonNode.get("data").get("VeterinaryId").asInt();
+                                    System.out.println(providerId + "     aaaaaaaaaaaaaaaaa");
+                                    if((role.equals("Distributor") && premisesId == receiverId) ||
+                                            (role.equals("Veterinary")
+//                                                    && veterinaryId == userID
+                                            ) ){
+                                        goToResult(transId, providerId);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Object ex) {
+
+                            }
+                        });
                     } else {
-                        return;
+                        Toast.makeText(ScanCodeActivity.this, "Mã không hợp lệ", Toast.LENGTH_SHORT).show();
                     }
-                    startActivity(it);
                 }
             }
         });
     }
 
+    public void goToResult(int transId, int providerId) {
+
+        Intent intent = new Intent(getApplicationContext(), ScanResultActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("transactionId", "" + transId);
+        intent.putExtra("providerId", "" + providerId);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
 
     @Override
     protected void onPause() {

@@ -59,12 +59,17 @@ public class FoodService {
     public void updateDistributorFood(Context context, int distributorId, int foodId, final VolleyCallBack volleyCallBack) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String URL = CONST.LOCAL_HOST + "api/Distributor/distributorFood/" + foodId + "/" + distributorId;
-
+        String URL = CONST.LOCAL_HOST + "api/Distributor/distributorFood/" + distributorId;
+        JSONObject jsonObject = new JSONObject();
+        try {
+                jsonObject.put("FoodId", foodId);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.PUT,
                 URL,
-                null,
+                jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

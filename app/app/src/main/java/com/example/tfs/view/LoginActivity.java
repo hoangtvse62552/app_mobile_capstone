@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                     String json = response.toString();
                     ObjectMapper mapper = new ObjectMapper();
                     JsonNode node = mapper.readTree(json);
-                    token = node.get("token").toString();
+                    token = node.get("Data").get("Token").toString();
                     decodeToken();
                     goToHome();
                 } catch (Exception e) {
@@ -90,8 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 premisesId = Integer.parseInt(node.get("premisesID").asText());
             }
 
-            if (token.contains("Dist" +
-                    "ributor") || token.contains("Veterinary") ) {
+            if (token.contains("Distributor") || token.contains("Veterinary") ) {
             } else {
                 loginFail();
                 return;

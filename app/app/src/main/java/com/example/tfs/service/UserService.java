@@ -177,8 +177,8 @@ public class UserService {
         final String URL = CONST.LOCAL_HOST + "api/Guest/login";
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        username = "verter1";
-        password = "123";
+//        username = "dist1";
+//        password = "123";
 
         JSONObject jsonObject = new JSONObject();
         try {

@@ -31,10 +31,10 @@ public class TransactionService {
         return transactionService;
     }
 
-    public void getTransaction(Context context, int transactionId, final VolleyCallBack volleyCallBack) {
+    public void getTransaction(Context context, int transactionId, String role, final VolleyCallBack volleyCallBack) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String URL = CONST.LOCAL_HOST + "api/Veterinary/transaction/" + transactionId;
+        String URL = CONST.LOCAL_HOST + "api/" + role + "/transaction/" + transactionId;
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -56,17 +56,17 @@ public class TransactionService {
         requestQueue.add(objectRequest);
     }
 
-    public void updateTransaction(Context context, int transactionId, int status, String reason, int veterinaryId,final VolleyCallBack volleyCallBack) {
+    public void updateTransaction(Context context, int transactionId, int status, String reason, String role,int userID, final VolleyCallBack volleyCallBack) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        String URL = CONST.LOCAL_HOST +  "api/Veterinary/transaction/" + transactionId + "?tranId=" + transactionId;
+        String URL = CONST.LOCAL_HOST + "api/" + role + "/transaction/" + transactionId + "?tranId=" + transactionId;
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("VeterinaryId",veterinaryId );
             jsonObject.put("StatusId", status);
             jsonObject.put("RejectedReason", reason);
+            jsonObject.put("RejectById", userID );
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

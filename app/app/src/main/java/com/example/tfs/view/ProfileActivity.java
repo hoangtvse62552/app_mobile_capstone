@@ -105,7 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
     public void success() {
-        Toast.makeText(ProfileActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Lưu thành công", Toast.LENGTH_SHORT).show();
     }
     public void logout(View v) {
 
